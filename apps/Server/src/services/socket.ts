@@ -9,6 +9,7 @@ class SocketService {
 
     public initListeners() {
         const io = this.io;
+        console.log('initialised socket listeners...')
         io.on('connect', (socket)=>{
             console.log(`New Socket connected, ${socket.id}`);
             
