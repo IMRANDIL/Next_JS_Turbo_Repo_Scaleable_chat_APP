@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 
 import {io} from 'socket.io-client'
 
@@ -10,6 +10,12 @@ interface SocketProviderProp  {
 
 interface ISocketContext {
     sendMessage: (msg: string)=> any;
+}
+
+export const useSocket = () => {
+    const state = useContext(SocketContext);
+    if(!state) throw new Error('state is undefined');
+    return state;
 }
 
 const SocketContext = React.createContext<ISocketContext | null>(null);
@@ -29,7 +35,8 @@ return () => {
     _socket.disconnect()
 }
 
-},[])
+},[]);
+
 
     return (
         <SocketContext.Provider value={{sendMessage}}>
