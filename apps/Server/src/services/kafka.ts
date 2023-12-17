@@ -38,6 +38,7 @@ export const produceMessage = async (message: string) => {
 };
 
 export const startConsuming = async () => {
+    console.log('consumer is running....')
   const consumer = kafka.consumer({ groupId: "default" });
   await consumer.connect();
   await consumer.subscribe({ topic: "MESSAGES", fromBeginning: true });
