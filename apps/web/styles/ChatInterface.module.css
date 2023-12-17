@@ -15,6 +15,7 @@
   max-height: 80vh;
   overflow-y: auto;
   padding: 10px;
+  padding-bottom: 50px;
 }
 
 .userMessage {
