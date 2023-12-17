@@ -1,7 +1,16 @@
 import { Kafka, Producer } from "kafkajs";
-
+import fs from 'fs';
+import path from 'path'
 const kafka = new Kafka({
-  brokers: ['']  
+  brokers: ['kafka-25ee24c1-aliimranadil2-cf20.a.aivencloud.com:18560'],
+  ssl: {
+    ca: [fs.readFileSync(path.resolve('ca.pem'), 'utf-8')]
+  },
+  sasl: {
+    username: 'avnadmin',
+    password: 'AVNS_A1TzVohhJtj2GlAxUzz',
+    mechanism: 'plain',
+  }
 });
 
 

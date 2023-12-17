@@ -51,8 +51,10 @@ class SocketService {
             if(channel === 'MESSAGES') {
                 console.log('message from message channel>>>>', msg)
                 io.emit('message', {msg});
-
                 //kafka now...
+                // produce the msg to kafak
+                await produceMessage(msg);
+                console.log('msg produced to kafka...')
             }
         })
     }
