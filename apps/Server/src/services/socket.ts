@@ -49,7 +49,9 @@ class SocketService {
         sub.on('message', async(channel, msg)=>{
             if(channel === 'MESSAGES') {
                 console.log('message from message channel>>>>', msg)
-                io.emit('message', {msg})
+                io.emit('message', {msg});
+
+                //kafka now...
             }
         })
     }
