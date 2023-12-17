@@ -3,14 +3,14 @@
 import React, { useState } from 'react';
 import styles from '../styles/ChatInterface.module.css'
 
-const ChatInterface = ({sendMessage}) => {
-  const [messages, setMessages] = useState([]);
+const ChatInterface = ({sendMessage, messages}) => {
+  // const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== '') {
       sendMessage(newMessage)
-      setMessages([...messages, { text: newMessage, sender: 'user' }]);
+      // setMessages([...messages, { text: newMessage, sender: 'user' }]);
       setNewMessage('');
     }
   };
@@ -22,12 +22,12 @@ const ChatInterface = ({sendMessage}) => {
           <div
             key={index}
             className={
-              message.sender === 'user'
-                ? styles.userMessage
-                : styles.botMessage
+             
+                 styles.userMessage
+               
             }
           >
-            {message.text}
+            {message}
           </div>
         ))}
       </div>

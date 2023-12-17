@@ -32,7 +32,7 @@ const sendMessage: ISocketContext['sendMessage'] = useCallback((msg)=>{
 
 const onMessageRec = useCallback((msg: string)=>{
     console.log('from server msg received', msg);
-    const {message} = JSON.parse(msg) as {msg: string};
+     const {msg: message} = JSON.parse(msg['msg']);
     setMessages(prevMsg => [...prevMsg, message])
 },[])
 
@@ -51,7 +51,7 @@ return () => {
 
 
     return (
-        <SocketContext.Provider value={{sendMessage}}>
+        <SocketContext.Provider value={{sendMessage, messages}}>
             {children}
         </SocketContext.Provider>
     )

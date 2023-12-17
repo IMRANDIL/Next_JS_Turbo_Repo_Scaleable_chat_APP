@@ -4,7 +4,7 @@ import ChatInterface from "../components/ChatInterface"
 import { useSocket } from "../context/SocketProvider"
 
 export default function Page() {
-  const {sendMessage} = useSocket()
+  const {sendMessage, messages} = useSocket()
   return (
     <>
     <h1 style={{
@@ -18,7 +18,7 @@ export default function Page() {
       display: 'flex',
       justifyContent:'center'
     }}>
-<ChatInterface sendMessage={sendMessage}/>
+<ChatInterface sendMessage={sendMessage} messages={messages}/>
     </div>
     </>
   )
