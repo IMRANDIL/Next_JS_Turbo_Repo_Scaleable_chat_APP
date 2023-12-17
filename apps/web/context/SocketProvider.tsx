@@ -10,6 +10,7 @@ interface SocketProviderProp  {
 
 interface ISocketContext {
     sendMessage: (msg: string)=> any;
+    messages: string[]
 }
 
 export const useSocket = () => {
