@@ -29,8 +29,13 @@ const sendMessage: ISocketContext['sendMessage'] = useCallback((msg)=>{
     }
 },[socket]);
 
+const onMessageRec = useCallback((msg: string)=>{
+    console.log('from server msg received', msg);
+},[])
+
 useEffect(()=>{
 const _socket = io('http://localhost:8000');
+_socket.on('message', onMessageRec)
 setSocket(_socket);
 
 return () => {

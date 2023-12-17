@@ -29,6 +29,8 @@ class SocketService {
                 allowedHeaders: '*'
             }
         });
+
+        sub.subscribe('MESSAGES')
     }
 
     public initListeners() {
@@ -42,6 +44,12 @@ class SocketService {
                 //publish the msg to redis now
                 await pub.publish('MESSAGES', JSON.stringify({msg}))
             })
+        });
+
+        sub.on('message', async(channel, msg)=>{
+            if(channel === 'MESSAGES') {
+                io.emit('message', {msg})
+            }
         })
     }
 
