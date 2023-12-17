@@ -29,8 +29,6 @@ const sendMessage: ISocketContext['sendMessage'] = useCallback((msg)=>{
 useEffect(()=>{
 const _socket = io('http://localhost:8000');
 
-
-
 return () => {
     _socket.disconnect()
 }
