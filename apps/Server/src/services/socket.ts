@@ -1,5 +1,6 @@
 import { Server } from "socket.io";
 import { Redis } from "ioredis";
+import { createProducer } from "./kafka";
 
 
 
