@@ -40,6 +40,7 @@ setSocket(_socket);
 
 return () => {
     _socket.disconnect();
+    _socket.off('message')
     setSocket(undefined)
 }
 
