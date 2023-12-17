@@ -10,9 +10,10 @@ import SocketService from './services/socket';
     //attach http server on socketService
     socketService.io.attach(httpServer);
 
-    
+
     const PORT = process.env.PORT || 8000;
 
     httpServer.listen(PORT, ()=> console.log(`Http server started on port: ${PORT}`));
     
+    socketService.initListeners()
 })()
