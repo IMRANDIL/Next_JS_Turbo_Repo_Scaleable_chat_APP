@@ -3,12 +3,13 @@
 import React, { useState } from 'react';
 import styles from '../styles/ChatInterface.module.css'
 
-const ChatInterface = () => {
+const ChatInterface = ({sendMessage}) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== '') {
+      sendMessage(newMessage)
       setMessages([...messages, { text: newMessage, sender: 'user' }]);
       setNewMessage('');
     }
