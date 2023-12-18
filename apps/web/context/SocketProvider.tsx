@@ -35,15 +35,22 @@ const onMessageRec = useCallback((msg: string)=>{
     console.log('from server msg received', msg);
      const {msg: message} = JSON.parse(msg['msg']);
     setMessages(prevMsg => [...prevMsg, message])
+},[]);
+
+const onPrevMessageRec = useCallback((prevMsg: string[])=>{
+    console.log('from server prev msg received', prevMsg);
+    setMessages(prevMsg.map(msg => JSON.parse(msg.text).msg));
 },[])
 
 useEffect(()=>{
 const _socket = io('http://localhost:8000');
+_socket.on('previousMessages', onPrevMessageRec);
 _socket.on('message', onMessageRec)
 setSocket(_socket);
 
 return () => {
     _socket.disconnect();
+    _socket.off('previousMessages')
     _socket.off('message')
     setSocket(undefined)
 }

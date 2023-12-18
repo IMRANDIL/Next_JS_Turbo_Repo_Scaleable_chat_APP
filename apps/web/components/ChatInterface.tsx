@@ -1,31 +1,35 @@
 'use client'
 
-import React, { useState } from 'react';
-import styles from '../styles/ChatInterface.module.css'
+import React, { useState, useRef,useEffect } from 'react';
+import styles from '../styles/ChatInterface.module.css';
 
-const ChatInterface = ({sendMessage, messages}) => {
-  // const [messages, setMessages] = useState([]);
+
+
+const ChatInterface = ({ sendMessage, messages }) => {
   const [newMessage, setNewMessage] = useState('');
+  const messageContainerRef = useRef();
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== '') {
-      sendMessage(newMessage)
-      // setMessages([...messages, { text: newMessage, sender: 'user' }]);
+      sendMessage(newMessage);
       setNewMessage('');
     }
   };
 
+  // UseEffect to scroll to the latest message when messages are updated
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div className={styles.chatContainer}>
-      <div className={styles.messageContainer}>
+      <div className={styles.messageContainer} ref={messageContainerRef}>
         {messages.map((message, index) => (
           <div
             key={index}
-            className={
-             
-                 styles.userMessage
-               
-            }
+            className={styles.userMessage}
           >
             {message}
           </div>

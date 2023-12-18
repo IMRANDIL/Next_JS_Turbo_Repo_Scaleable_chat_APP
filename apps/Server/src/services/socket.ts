@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import { Redis } from "ioredis";
 import { produceMessage } from "./kafka";
+import prismaClient from "./prisma";
 
 
 
@@ -37,9 +38,13 @@ class SocketService {
     public initListeners() {
         const io = this.io;
         console.log('initialised socket listeners...')
-        io.on('connect', (socket)=>{
+        io.on('connect', async(socket)=>{
             console.log(`New Socket connected, ${socket.id}`);
-            
+            // Fetch previous messages from the database
+      const previousMessages = await prismaClient.message.findMany();
+      // Emit previous messages to the connected client
+      socket.emit('previousMessages', previousMessages);
+      
             socket.on('event:msg', async({msg}: {msg: string})=>{
                 console.log(`message received, ${msg}`);
                 //publish the msg to redis now
