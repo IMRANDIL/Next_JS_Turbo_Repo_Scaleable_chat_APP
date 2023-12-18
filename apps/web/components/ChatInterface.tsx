@@ -16,6 +16,13 @@ const ChatInterface = ({ sendMessage, messages }) => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Prevents the default behavior of adding a newline
+      handleSendMessage();
+    }
+  };
+
   // UseEffect to scroll to the latest message when messages are updated
   useEffect(() => {
     if (messageContainerRef.current) {
@@ -27,10 +34,7 @@ const ChatInterface = ({ sendMessage, messages }) => {
     <div className={styles.chatContainer}>
       <div className={styles.messageContainer} ref={messageContainerRef}>
         {messages.map((message, index) => (
-          <div
-            key={index}
-            className={styles.userMessage}
-          >
+          <div key={index} className={styles.userMessage}>
             {message}
           </div>
         ))}
@@ -40,6 +44,7 @@ const ChatInterface = ({ sendMessage, messages }) => {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Type your message..."
         />
         <button onClick={handleSendMessage}>Send</button>
