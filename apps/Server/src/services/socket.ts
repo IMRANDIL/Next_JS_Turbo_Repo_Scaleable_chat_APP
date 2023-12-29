@@ -9,14 +9,14 @@ const pub = new Redis({
     host:'redis-21230caa-aliimranadil2-cf20.a.aivencloud.com',
     port: 18547,
     username: 'default',
-    password: 'AVNS_srw9EgZaxr3myDRf6BS'
+    password: ''
 });
 
 const sub = new Redis({
     host:'redis-21230caa-aliimranadil2-cf20.a.aivencloud.com',
     port: 18547,
     username: 'default',
-    password: 'AVNS_srw9EgZaxr3myDRf6BS'
+    password: ''
 })
 
 
