@@ -23,7 +23,7 @@ const SocketContext = React.createContext<ISocketContext | null>(null);
 
 export const SocketProvider: React.FC<SocketProviderProp> = ({children}) => {
 const [socket, setSocket] = useState<Socket>();
-const [messages, setMessages] = useState([])
+const [messages, setMessages] = useState<string[]>([])
 const sendMessage: ISocketContext['sendMessage'] = useCallback((msg)=>{
     console.log('Send Message', msg);
     if(socket) {
@@ -39,7 +39,7 @@ const onMessageRec = useCallback((msg: string)=>{
 
 const onPrevMessageRec = useCallback((prevMsg: string[])=>{
     console.log('from server prev msg received', prevMsg);
-    setMessages(prevMsg.map(msg => JSON.parse(msg?.text!)?.msg));
+    setMessages(prevMsg.map(msg => msg && msg.text && JSON.parse(msg?.text!)?.msg));
 },[])
 
 useEffect(()=>{
