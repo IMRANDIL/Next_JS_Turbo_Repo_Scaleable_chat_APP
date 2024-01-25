@@ -1,11 +1,14 @@
 'use client'
 
-import React, { useState, useRef,useEffect } from 'react';
+import React, { useState, useRef,useEffect, FC } from 'react';
 import styles from '../styles/ChatInterface.module.css';
 
+interface ChatInterfaceProps {
+  sendMessage: (message: string) => void;
+  messages: Message[];
+}
 
-
-const ChatInterface = ({ sendMessage, messages }) => {
+const ChatInterface: FC<ChatInterfaceProps> = ({ sendMessage, messages }) => {
   const [newMessage, setNewMessage] = useState('');
   const messageContainerRef = useRef();
 
