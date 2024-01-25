@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef,useEffect, FC } from 'react';
+import React, { useState, useRef,useEffect, FC, HTMLDivElement } from 'react';
 import styles from '../styles/ChatInterface.module.css';
 
 interface ChatInterfaceProps {
@@ -10,7 +10,8 @@ interface ChatInterfaceProps {
 
 const ChatInterface: FC<ChatInterfaceProps> = ({ sendMessage, messages }) => {
   const [newMessage, setNewMessage] = useState('');
-  const messageContainerRef = useRef();
+   const messageContainerRef = useRef<HTMLDivElement>(null);
+  //const messageContainerRef = useRef();
 
   const handleSendMessage = () => {
     if (newMessage.trim() !== '') {
