@@ -37,10 +37,26 @@ const onMessageRec = useCallback((msg: string)=>{
     setMessages(prevMsg => [...prevMsg, message])
 },[]);
 
-const onPrevMessageRec = useCallback((prevMsg: string[])=>{
+// const onPrevMessageRec = useCallback((prevMsg: string[])=>{
+//     console.log('from server prev msg received', prevMsg);
+//     setMessages(prevMsg.map(msg => msg && msg.text && JSON.parse(msg?.text!)?.msg));
+// },[])
+
+    const onPrevMessageRec = useCallback((prevMsg: string[]) => {
     console.log('from server prev msg received', prevMsg);
-    setMessages(prevMsg.map(msg => msg && msg.text && JSON.parse(msg?.text!)?.msg));
-},[])
+    setMessages(prevMsg.map(msg => {
+        try {
+            const parsedMsg = JSON.parse(msg);
+            if (parsedMsg && parsedMsg.text) {
+                return parsedMsg.text.msg;
+            }
+        } catch (error) {
+            console.error('Error parsing message:', error);
+        }
+        return ''; // Default message or handle it appropriately
+    }));
+}, []);
+
 
 useEffect(()=>{
 const _socket = io('http://localhost:8000');
