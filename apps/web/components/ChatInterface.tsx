@@ -28,9 +28,14 @@ const ChatInterface: FC<ChatInterfaceProps> = ({ sendMessage, messages }) => {
 
   // UseEffect to scroll to the latest message when messages are updated
   useEffect(() => {
-    if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+   if (messageContainerRef.current) {
+    const { scrollTop, scrollHeight } = messageContainerRef.current;
+    
+    // Use the non-null assertion operator (!) to assert that scrollTop and scrollHeight are not null or undefined
+    if (scrollTop !== undefined && scrollHeight !== undefined) {
+      messageContainerRef.current.scrollTop = scrollHeight;
     }
+  }
   }, [messages]);
 
   return (
