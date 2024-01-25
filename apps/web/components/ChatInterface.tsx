@@ -5,7 +5,7 @@ import styles from '../styles/ChatInterface.module.css';
 
 interface ChatInterfaceProps {
   sendMessage: (message: string) => void;
-  messages: Message[];
+  messages: [];
 }
 
 const ChatInterface: FC<ChatInterfaceProps> = ({ sendMessage, messages }) => {
