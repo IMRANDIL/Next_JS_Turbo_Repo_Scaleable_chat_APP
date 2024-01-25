@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+      tools {
+        nodejs 'NodeJS'
+    }
+  
+    stages {
+        stage('Checkout') {
+            
+            steps {
+                echo 'Check out the code'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/IMRANDIL/Next_JS_Turbo_Repo_Scaleable_chat_APP.git']]])
+            }
+        }
+        
+        stage('build') {
+            
+            steps {
+                echo 'installing node_modules'
+                bat 'npm install'
+                echo 'building now'
+               bat 'npm run build && exit 0'
+                
+            }
+        }
+        
+         stage('docker-build') {
+            
+            steps {
+                echo 'Building images'
+                bat 'docker build -t imrandil/web-app-next -f apps/web/Dockerfile apps/web/'
+                echo 'Done Building image'
+            }
+        }
+
+        
+    }
+}
