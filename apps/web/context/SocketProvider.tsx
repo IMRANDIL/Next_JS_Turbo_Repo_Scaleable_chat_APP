@@ -39,7 +39,7 @@ const onMessageRec = useCallback((msg: string)=>{
 
 const onPrevMessageRec = useCallback((prevMsg: string[])=>{
     console.log('from server prev msg received', prevMsg);
-    setMessages(prevMsg.map(msg => JSON.parse(msg?.text)?.msg));
+    setMessages(prevMsg.map(msg => JSON.parse(msg?.text!)?.msg));
 },[])
 
 useEffect(()=>{
