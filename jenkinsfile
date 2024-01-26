@@ -14,10 +14,13 @@ pipeline {
             
             steps {
                 echo 'installing node_modules'
-                bat 'npm install'
-                echo 'building now'
-               bat 'npm run build && exit 0'
-                
+              bat '''
+            cd apps/web/
+            npm install
+            npm run build
+                             '''
+                  echo 'done code building...'           
+            
             }
         }
         
