@@ -1,9 +1,6 @@
 pipeline {
     agent any
-      tools {
-        nodejs 'NodeJS'
-    }
-  
+     
     stages {
         stage('Checkout') {
             
@@ -30,6 +27,27 @@ pipeline {
                 echo 'Building images'
                 bat 'docker build -t imrandil/web-app-next -f apps/web/Dockerfile apps/web/'
                 echo 'Done Building image'
+            }
+        }
+        
+        stage('image-publish') {
+            
+            steps {
+                echo 'Publishing images to docker hub'
+                echo 'Logging to docker hub...'
+                   // Log in to Docker Hub
+                withCredentials([usernamePassword(credentialsId: 'imrandil-pass', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    // Log in to Docker Hub
+                    bat "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+
+                    // Tag the local Docker image with the Docker Hub repository
+                    bat 'docker tag imrandil/web-app-next imrandil/web-app-next:latest'
+
+                    // Push the Docker image to Docker Hub
+                    bat 'docker push imrandil/web-app-next:latest'
+                }
+
+                echo 'Done publishing image'
             }
         }
 
