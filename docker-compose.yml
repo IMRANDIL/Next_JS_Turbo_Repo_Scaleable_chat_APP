@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  frontend-service:
+    build:
+      context: ./
+      dockerfile: ./apps/web/Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    deploy:
+      mode: replicated
+      replicas: 1
+    container_name: web-app-next
